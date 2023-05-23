@@ -1,6 +1,4 @@
-import { uid } from "uid";
-
-export default function List({ activities }) {
+export default function List({ activities, weatherData, onDeleteActivity }) {
   return (
     <div className="list">
       <div className="filter">
@@ -15,7 +13,16 @@ export default function List({ activities }) {
           </div>
         ) : (
           activities.map((activity) => {
-            return <li key={uid()}>{activity.name}</li>;
+            return (
+              <li key={activity.key} className={activity.key}>
+                <div className="icon">
+                  {weatherData.condition} Its going to be{" "}
+                  {weatherData.temperature}°C - You could:
+                </div>
+                <h3>{activity.name}</h3>
+                <button onClick={onDeleteActivity}>x</button>
+              </li>
+            );
           })
         )}
       </ul>
