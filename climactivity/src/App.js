@@ -7,6 +7,7 @@ import Hero from "./Components/Hero/Hero";
 function App() {
   const [activities, setActivities] = useState([]);
   //JSON.parse(localStorage.getItem("data"))
+// noch problematisch, weil wir hier eigentlich als Default value den local storage einfügen wollen, das aber bei "null" durch die map Methode in der Liste einen Error wirft
   const [weatherData, setWeatherData] = useState({ condition: "⏳" });
 
   //------ Fetch Data --------
