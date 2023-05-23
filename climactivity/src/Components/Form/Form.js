@@ -20,33 +20,41 @@ export default function Form({ onAddActivity }) {
 
     // -------- Clean Up the Form --------
     form.reset();
-    form.focus(e.target.name);
+    e.target.elements.name.focus();
   }
 
   return (
     <form id="form" onSubmit={handleSubmit} className="form">
+      <h2>Add a new Activity</h2>
       <div className="formElement">
-        <label htmlFor="name">Activity name</label>
+        <label htmlFor="name"></label>
         <input
           type="text"
           placeholder="name of activity"
           name="name"
           id="name"
+          tabindex="1"
         ></input>
       </div>
 
-      <div className="formElement">
-        <span> Good Weather?</span>
+      <div
+        className="formElement"
+        title="activate if activity is for good weather"
+      >
         <input
           className="mytoggle"
           type="checkbox"
           name="isForGoodWeather"
           id="isForGoodWeather"
           role="button"
+          title="activate if activity is for good weather"
+          tabindex="2"
         ></input>
         <label className="mytoggle" htmlFor="isForGoodWeather"></label>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" tabindex="3">
+        Submit
+      </button>
     </form>
   );
 }

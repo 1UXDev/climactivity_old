@@ -1,10 +1,38 @@
+@import url("https://fonts.cdnfonts.com/css/righteous");
+@import url("https://fonts.cdnfonts.com/css/montserrat");
+
 body {
   margin: 0px auto;
   background-color: aliceblue;
   max-width: 600px;
   padding: 24px 12px;
-  height: 100vh;
-  width: 100vw - 24px;
+  width: 100% - 24px;
+  font-family: "Montserrat", sans-serif;
+  height: auto;
+}
+
+#root {
+  padding-bottom: 12px;
+}
+
+#root * * {
+  animation-duration: 1s;
+  animation-name: animate-fade;
+  animation-fill-mode: backwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes animate-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8, 0.8);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+    filter: blur(0px);
+  }
 }
 
 /* #root {
@@ -12,11 +40,12 @@ body {
 } */
 
 .bgVideo {
-  object-fit: unset;
+  object-fit: cover;
   position: fixed;
-  z-index: -1;
+  z-index: -10;
   margin: -24px;
   min-height: 100vh;
+  max-width: 648px;
 }
 
 .hero,
@@ -26,8 +55,8 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: brightness(150%) blur(4px);
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: brightness(130%) blur(4px);
   border-radius: 12px;
   padding: 24px 12px;
   margin-bottom: 24px;
@@ -35,6 +64,7 @@ body {
 
 .heroData {
   display: flex;
+
   flex-direction: row;
   padding: 0px 48px;
   justify-content: center;
@@ -49,6 +79,7 @@ body {
   margin-block-end: unset;
   margin-block-start: 12px;
   color: rgb(48, 48, 48);
+  font-family: "Righteous", sans-serif;
 }
 
 .heroData h1 {
@@ -62,6 +93,13 @@ body {
   margin: 24px;
   margin-block-end: unset;
   margin-block-start: 12px;
+  font-weight: 600;
+}
+.nothingHere {
+  width: 100%;
+}
+.list {
+  flex-direction: column;
 }
 
 /*Custom Toggle on profile*/
@@ -71,8 +109,9 @@ label.mytoggle {
   height: 27px;
   border: 3px solid rgb(221, 221, 221);
   border-radius: 20px;
-  background: rgb(221, 221, 221);
+  background: rgb(255, 255, 255);
   cursor: pointer;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 label.mytoggle:before {
@@ -83,9 +122,9 @@ label.mytoggle:before {
   display: block;
   width: 30px;
   height: 21px;
-  background: rgb(255, 255, 255);
+  background: rgb(197, 197, 197);
   border-radius: 50px;
-  border-bottom: 8px solid white;
+  border-bottom: 8px solid rgb(197, 197, 197);
   /* border: 2px solid white; */
 }
 
@@ -105,24 +144,42 @@ input.mytoggle:checked + label.mytoggle {
   border: 3px solid white;
 }
 
+.form h2 {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5em;
+  padding-bottom: 12px;
+}
 .form .formElement {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
+  justify-content: baseline;
 }
 
-.formElement:first-child {
-  width: 65%;
-  margin-right: 24px;
+@media only screen and (max-width: 420px) {
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: baseline;
+    gap: 8px;
+  }
 }
 
 .formElement input {
-  height: 24px;
+  height: 32px;
   border-radius: 4px;
   border: 1px solid rgba(225, 225, 225, 0.5);
+  padding-left: 18px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
+  font-size: 1.15em;
 }
 
 .formElement:nth-child(2) {
-  width: 25%;
+  width: 80%;
+  padding-right: 12px;
 }
 
 .form button {
@@ -131,19 +188,63 @@ input.mytoggle:checked + label.mytoggle {
   min-width: 150px;
   min-height: 36px;
   border-radius: 99px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
+  font-size: 1.15em;
+  font-weight: 500;
+}
+
+.list h3 {
+  margin-block-end: 24px;
+  margin-block-start: 0px;
+  font-size: 1.1em;
+  font-weight: 500;
 }
 
 .list ul {
   padding-inline-start: unset;
   margin: 0px auto;
+  margin-inline-end: unset;
+  margin-inline-start: unset;
 }
 
 .list li {
-  width: 80vw;
-  min-width: 320px;
+  width: 80%;
+  min-width: 270px;
   background-color: rgba(255, 255, 255, 0.9);
   list-style-type: none;
   padding: 24px;
   margin-bottom: 12px;
   border-radius: 12px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li h4 {
+  margin-block-end: unset;
+  margin-block-start: unset;
+}
+
+li button {
+  border-radius: 99px;
+  width: 28px;
+  height: 28px;
+  font-size: 1.1em;
+  background-color: transparent;
+}
+
+li button:hover {
+  background-color: rgb(193, 55, 55);
+  cursor: pointer;
+  color: white;
+  border: white;
+}
+
+li {
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
+}
+
+li:hover {
+  box-shadow: 3px 4px 16px rgba(0, 0, 0, 0.18);
 }

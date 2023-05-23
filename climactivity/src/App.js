@@ -5,6 +5,7 @@ import List from "./Components/List/List";
 import Hero from "./Components/Hero/Hero";
 import bg_good from "./Media/bg_good.mp4";
 import bg_bad from "./Media/bg_bad.mp4";
+import Video from "./Components/Video/Video";
 
 function App() {
   // Setting the acitvities to either "[]" or the localstorage
@@ -14,6 +15,7 @@ function App() {
   const [isGoodWeather, setIsGoodWeather] = useState();
   const [filteredActivities, setFilteredActivities] = useState([]);
   const [updater, setUpdater] = useState(0);
+  const [bgVid, setBgVid] = useState();
 
   // function to set activity to the correct value dependant on what is already in the localstorage
   function loadingFunction() {
@@ -47,15 +49,6 @@ function App() {
     return () => clearInterval(interval);
   }, [updater]);
 
-  // -------- interval function (not working yet) --------
-  //   const interval = setInterval(() => {
-  //     startFetch();
-  //   }, 5000);
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, []);
-
   // -------- Append New Activities --------
   // Funktion die an "Form" gegeben wird. das Parameter "newActivity" wird mit dem UserInput der Form gefüllt
   function handleAddActivity(newActivity) {
@@ -87,7 +80,9 @@ function App() {
   // isGoodWeather auf den derzeitigen Wert des API return setzen
   useEffect(() => {
     setIsGoodWeather(weatherData.isGoodWeather);
-  }, [weatherData]);
+    setBgVid(weatherData.isGoodWeather ? bg_good : bg_bad);
+    console.log("bg video is now:", bgVid);
+  }, [weatherData, bgVid]);
 
   // Filtern der Activities nach dem Wetterstatus der API
   useEffect(() => {
@@ -106,17 +101,17 @@ function App() {
 
   return (
     <>
-      <video className="bgVideo" autoPlay loop muted>
-        <source src={bg_bad} type="video/mp4" />
-      </video>
+      {isGoodWeather && <Video src={bg_good} />}
+      {!isGoodWeather && <Video src={bg_bad} />}
 
       <Hero weatherData={weatherData} />
-      <Form onAddActivity={handleAddActivity} />
+
       <List
         activities={filteredActivities}
         weatherData={weatherData}
         onDeleteActivity={handleDeleteActivity}
       />
+      <Form onAddActivity={handleAddActivity} />
     </>
   );
 }
