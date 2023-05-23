@@ -9,8 +9,8 @@ export default function Hero({ weatherData }) {
         {!weatherData
           ? " "
           : weatherData.isGoodWeather
-          ? "Awesome Weather ahead! Go Meet some Friendos"
-          : "Channel your inner Introvert, the Weather is gonna be nasty"}
+          ? `Awesome Weather ahead in 📍${weatherData.location}!`
+          : `Channel your inner Introvert, the Weather is gonna be nasty in 📍${weatherData.location}`}
       </p>
     </div>
   );

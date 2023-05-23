@@ -26,31 +26,33 @@ export default function Form({ onAddActivity }) {
   return (
     <form id="form" onSubmit={handleSubmit} className="form">
       <h2>Add a new Activity</h2>
-      <div className="formElement">
-        <label htmlFor="name"></label>
-        <input
-          type="text"
-          placeholder="name of activity"
-          name="name"
-          id="name"
-          tabindex="1"
-        ></input>
-      </div>
+      <div className="formElementWrapper">
+        <div className="formElement">
+          <label htmlFor="name"></label>
+          <input
+            type="text"
+            placeholder="name of activity"
+            name="name"
+            id="name"
+            tabindex="1"
+          ></input>
+        </div>
 
-      <div
-        className="formElement"
-        title="activate if activity is for good weather"
-      >
-        <input
-          className="mytoggle"
-          type="checkbox"
-          name="isForGoodWeather"
-          id="isForGoodWeather"
-          role="button"
+        <div
+          className="formElement"
           title="activate if activity is for good weather"
-          tabindex="2"
-        ></input>
-        <label className="mytoggle" htmlFor="isForGoodWeather"></label>
+        >
+          <input
+            className="mytoggle"
+            type="checkbox"
+            name="isForGoodWeather"
+            id="isForGoodWeather"
+            role="button"
+            title="activate if activity is for good weather"
+            tabindex="2"
+          ></input>
+          <label className="mytoggle" htmlFor="isForGoodWeather"></label>
+        </div>
       </div>
       <button type="submit" tabindex="3">
         Submit
