@@ -1,6 +1,4 @@
-import { uid } from "uid";
-
-export default function List({ activities }) {
+export default function List({ activities, onDeleteActivity }) {
   return (
     <div className="list">
       <div className="filter">
@@ -15,7 +13,12 @@ export default function List({ activities }) {
           </div>
         ) : (
           activities.map((activity) => {
-            return <li key={uid()}>{activity.name}</li>;
+            return (
+              <li key={activity.key} className={activity.key}>
+                {activity.name}
+                <button onClick={onDeleteActivity}>x</button>
+              </li>
+            );
           })
         )}
       </ul>

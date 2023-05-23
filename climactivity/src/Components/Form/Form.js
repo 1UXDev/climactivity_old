@@ -1,3 +1,5 @@
+import { uid } from "uid";
+
 export default function Form({ onAddActivity }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -10,6 +12,7 @@ export default function Form({ onAddActivity }) {
     const formObj = {
       name: name.value,
       activityCheckbox: activityCheckbox,
+      key: uid(),
     };
 
     // -------- Passing Object to function in App --------

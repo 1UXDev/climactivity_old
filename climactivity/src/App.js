@@ -48,6 +48,7 @@ function App() {
   // Funktion die an "Form" gegeben wird. das Parameter "newActivity" wird mit dem UserInput der Form gefüllt
   function handleAddActivity(newActivity) {
     setActivities([...activities, newActivity]);
+    console.log(activities);
   }
 
   // -------- Write to local Storage --------
@@ -56,11 +57,31 @@ function App() {
     localStorage.setItem("data", JSON.stringify(activities));
   }, [activities]);
 
+  function handleDeleteActivity(li) {
+    // Key des List-Items festhalten
+    let currentLiId = li.target.parentElement.className;
+
+    //console.log(activities.filter((activity) => activity.id !== currentLiId));
+    setActivities(
+      activities.filter((activity) => activity.key !== currentLiId)
+    );
+    localStorage.setItem(
+      "data",
+      JSON.stringify(
+        activities.filter((activity) => activity.id !== currentLiId)
+      )
+    );
+  }
+
   return (
     <div>
       <Hero weatherData={weatherData} />
       <Form onAddActivity={handleAddActivity} />
-      <List activities={activities} />
+      <List
+        activities={activities}
+        onDeleteActivity={handleDeleteActivity}
+        //currentLi={setCurrentLi}
+      />
     </div>
   );
 }
