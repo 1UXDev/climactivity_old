@@ -6,13 +6,16 @@ export default function Form({ onAddActivity }) {
     const name = form.elements.name;
     const activityCheckbox = form.elements.isForGoodWeather.checked;
 
+    // -------- Building the Object --------
     const formObj = {
       name: name.value,
       activityCheckbox: activityCheckbox,
     };
 
+    // -------- Passing Object to function in App --------
     onAddActivity(formObj);
 
+    // -------- Clean Up the Form --------
     form.reset();
     form.focus(e.target.name);
   }

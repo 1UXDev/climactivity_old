@@ -8,7 +8,7 @@ export default function List({ activities }) {
         <button>I feel rain</button>
       </div>
       <ul>
-        {activities.length === 0 ? (
+        {(!activities || activities.length) === 0 ? (
           <div className="nothingHere">
             <h2>Nothing 🪵 here</h2>
             <p>Why don't you add something?</p>
