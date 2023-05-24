@@ -13,6 +13,7 @@ function App() {
   // Setting the weather
   const [weatherData, setWeatherData] = useState({ condition: "⏳" });
   const [isGoodWeather, setIsGoodWeather] = useState();
+  // Setting all other variables
   const [filteredActivities, setFilteredActivities] = useState([]);
   const [updater, setUpdater] = useState(0);
   const [bgVid, setBgVid] = useState();
