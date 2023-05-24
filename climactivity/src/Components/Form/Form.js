@@ -1,3 +1,5 @@
+import { uid } from "uid";
+
 export default function Form({ onAddActivity }) {
   function handleSubmit(e) {
     e.preventDefault();
@@ -8,6 +10,7 @@ export default function Form({ onAddActivity }) {
 
     // -------- Building the Object --------
     const formObj = {
+      key: uid(),
       name: name.value,
       activityCheckbox: activityCheckbox,
     };
@@ -17,70 +20,43 @@ export default function Form({ onAddActivity }) {
 
     // -------- Clean Up the Form --------
     form.reset();
-    form.focus(e.target.name);
+    e.target.elements.name.focus();
   }
 
   return (
-    <form id="form" onSubmit={handleSubmit}>
-      <label htmlFor="name">Activity name</label>
-      <input
-        type="text"
-        placeholder="name of activity"
-        name="name"
-        id="name"
-      ></input>
+    <form id="form" onSubmit={handleSubmit} className="form">
+      <h2>Add a new Activity</h2>
+      <div className="formElementWrapper">
+        <div className="formElement">
+          <label htmlFor="name"></label>
+          <input
+            type="text"
+            placeholder="name of activity"
+            name="name"
+            id="name"
+            tabindex="1"
+          ></input>
+        </div>
 
-      <label htmlFor="isForGoodWeather">Is good Weather Activity</label>
-      <input
-        type="checkbox"
-        name="isForGoodWeather"
-        id="isForGoodWeather"
-      ></input>
-      <button type="submit">Submit</button>
+        <div
+          className="formElement"
+          title="activate if activity is for good weather"
+        >
+          <input
+            className="mytoggle"
+            type="checkbox"
+            name="isForGoodWeather"
+            id="isForGoodWeather"
+            role="button"
+            title="activate if activity is for good weather"
+            tabindex="2"
+          ></input>
+          <label className="mytoggle" htmlFor="isForGoodWeather"></label>
+        </div>
+      </div>
+      <button type="submit" tabindex="3">
+        Submit
+      </button>
     </form>
   );
 }
-
-// //import { useState } from "react";
-
-// export default function Form({ onAddActivity }) {
-//     function handleSubmit(e) {
-//       e.preventDefault();
-
-//       const form = e.target;
-//       const formData = new FormData(form);
-//       const name = form.elements.name;
-//       const activityCheckbox = form.elements.isForGoodWeather.checked;
-
-//       const formJson = Object.fromEntries(formData.entries());
-//       //console.log(formJson);
-//       //to get boolean value of checkbox
-//       //console.log(form.elements.isForGoodWeather.checked);
-
-//       onAddActivity(formJson);
-
-//       form.reset();
-//       form.focus(name);
-//     }
-
-//     return (
-//       <form id="form" onSubmit={handleSubmit}>
-//         <h1>Ich bin die Headline</h1>
-//         <label htmlFor="name">Activity name</label>
-//         <input
-//           type="text"
-//           placeholder="name of activity"
-//           name="name"
-//           id="name"
-//         ></input>
-
-//         <label htmlFor="isForGoodWeather">Is good Weather Activity</label>
-//         <input
-//           type="checkbox"
-//           name="isForGoodWeather"
-//           id="isForGoodWeather"
-//         ></input>
-//         <button type="submit">Submit</button>
-//       </form>
-//     );
-//   }

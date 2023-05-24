@@ -3,12 +3,19 @@ import Form from "./Components/Form/Form";
 import { useState, useEffect } from "react";
 import List from "./Components/List/List";
 import Hero from "./Components/Hero/Hero";
+import bg_good from "./Media/bg_good.mp4";
+import bg_bad from "./Media/bg_bad.mp4";
+import Video from "./Components/Video/Video";
 
 function App() {
   // Setting the acitvities to either "[]" or the localstorage
   const [activities, setActivities] = useState(() => loadingFunction());
   // Setting the weather
   const [weatherData, setWeatherData] = useState({ condition: "⏳" });
+  const [isGoodWeather, setIsGoodWeather] = useState();
+  const [filteredActivities, setFilteredActivities] = useState([]);
+  const [updater, setUpdater] = useState(0);
+  const [bgVid, setBgVid] = useState();
 
   // function to set activity to the correct value dependant on what is already in the localstorage
   function loadingFunction() {
@@ -19,8 +26,13 @@ function App() {
     }
   }
 
-  //-------- Fetch Data --------
+  //-------- Fetch Weather Data --------
   useEffect(() => {
+    const interval = setInterval(() => {
+      setUpdater(updater + 1);
+      console.log(updater * 5, "Sekunden vergangen");
+    }, 5000);
+
     async function startFetch() {
       try {
         const response = await fetch(
@@ -33,16 +45,9 @@ function App() {
       }
     }
     startFetch();
-  }, []);
 
-  // -------- interval function (not working yet) --------
-  //   const interval = setInterval(() => {
-  //     startFetch();
-  //   }, 5000);
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, []);
+    return () => clearInterval(interval);
+  }, [updater]);
 
   // -------- Append New Activities --------
   // Funktion die an "Form" gegeben wird. das Parameter "newActivity" wird mit dem UserInput der Form gefüllt
@@ -56,12 +61,58 @@ function App() {
     localStorage.setItem("data", JSON.stringify(activities));
   }, [activities]);
 
+  function handleDeleteActivity(li) {
+    // Key des List-Items festhalten
+    let currentLiId = li.target.parentElement.className;
+
+    //console.log(activities.filter((activity) => activity.id !== currentLiId));
+    setActivities(
+      activities.filter((activity) => activity.key !== currentLiId)
+    );
+    localStorage.setItem(
+      "data",
+      JSON.stringify(
+        activities.filter((activity) => activity.id !== currentLiId)
+      )
+    );
+  }
+
+  // isGoodWeather auf den derzeitigen Wert des API return setzen
+  useEffect(() => {
+    setIsGoodWeather(weatherData.isGoodWeather);
+    setBgVid(weatherData.isGoodWeather ? bg_good : bg_bad);
+    console.log("bg video is now:", bgVid);
+  }, [weatherData, bgVid]);
+
+  // Filtern der Activities nach dem Wetterstatus der API
+  useEffect(() => {
+    async function activityFilter() {
+      console.log("test");
+
+      setFilteredActivities(
+        activities.filter((activity) => {
+          return activity.activityCheckbox === isGoodWeather;
+        })
+      );
+      console.log(filteredActivities);
+    }
+    activityFilter();
+  }, [activities, isGoodWeather]);
+
   return (
-    <div>
+    <>
+      {isGoodWeather && <Video src={bg_good} />}
+      {!isGoodWeather && <Video src={bg_bad} />}
+
       <Hero weatherData={weatherData} />
+
+      <List
+        activities={filteredActivities}
+        weatherData={weatherData}
+        onDeleteActivity={handleDeleteActivity}
+      />
       <Form onAddActivity={handleAddActivity} />
-      <List activities={activities} />
-    </div>
+    </>
   );
 }
 
