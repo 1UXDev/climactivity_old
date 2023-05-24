@@ -63,6 +63,10 @@ body {
   margin-bottom: 24px;
 }
 
+.form {
+  flex-direction: column;
+}
+
 .heroData {
   display: flex;
 
@@ -200,6 +204,22 @@ input.mytoggle:checked + label.mytoggle {
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.12);
   font-size: 1.15em;
   font-weight: 500;
+}
+
+#hintText {
+  position: fixed;
+  margin: 0px auto;
+  top: 10%;
+  width: 100px;
+  height: 150px;
+  border-radius: 99px;
+  height: 10%;
+  background-color: white;
+  display: block;
+}
+
+#hintText.visible {
+  display: block;
 }
 
 .list h3 {
